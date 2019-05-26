@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="quad_margin">64dp</dimen>
+    <dimen name="triple_margin">32dp</dimen>
+    <dimen name="double_margin">16dp</dimen>
+    <dimen name="regular_margin">8dp</dimen>
+    <dimen name="half_margin">4dp</dimen>
+
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="bottom_navigation_elevation">4dp</dimen>
+
+    <dimen name="tab_layout_height">48dp</dimen>
+
+    <dimen name="profile_picture_size">80dp</dimen>
+    <dimen name="text_size_bottom_bar_unselected">6sp</dimen>
+    <dimen name="text_size_bottom_bar_selected">6sp</dimen>
+</resources>

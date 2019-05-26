@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">AppHospital</string>
+    <string name="app_name">App Hospital</string>
+    <string name="txt_username">Usuario</string>
+    <string name="txt_password">Contraseña</string>
+    <string name="txt_login" >Iniciar sesión</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="txt_no_internet">No hay conexión</string>
+    <string name="txt_required_username">Nombre de usuario requerido</string>
+    <string name="txt_required_password">Contraseña requerido</string>
+    <string name="txt_invalid_user_or_password">Verifique su nombre de usuario y contraseña</string>
+    <string name="txt_connection_error">No se puede conectar con el servidor,\\nintentelo más tarde</string>
+    <string name="txt_data_error">No se pudo almacenar en el dispositivo</string>
+    <string name="drawer_item_logout">Cerrar sesión</string>
+    <string name="txt_content_unavailable">Contenido no disponible</string>
 </resources>

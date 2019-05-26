@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary" />
+    android:scaleType="centerCrop"/>
+
+    <include
+        android:id="@+id/view_progress"
+        layout="@layout/nested_view_progress"
+        android:visibility="gone" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_vertical_center"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="240dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="@dimen/regular_margin"
+            android:scaleType="centerCrop"
+            android:tint="@color/accent"
+            app:layout_constraintBottom_toTopOf="@+id/guide_vertical_center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8"
+            app:srcCompat="@drawable/ic_ab" />
+
+        <LinearLayout
+            android:id="@+id/viewLoading"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guide_vertical_center">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:indeterminateTint="@color/accent" />
+
+            <TextView
+                android:id="@+id/txt_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryTextLight" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldUsername"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/double_margin"
+            android:layout_marginRight="@dimen/regular_margin"
+            android:theme="@style/FloatingLabelDarkTextAppearance"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guide_vertical_center">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_username"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:nextFocusDown="@+id/textFieldPassword"
+                android:textColor="@color/primaryTextDark"
+                android:textColorHint="@color/secondaryTextDark"
+                android:theme="@style/EditTextDarkAppearance" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldPassword"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/double_margin"
+            android:layout_marginRight="@dimen/regular_margin"
+            android:theme="@style/FloatingLabelDarkTextAppearance"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textFieldUsername">
+
+            <!--android:theme="@style/FloatingLabelDarkTextAppearance"-->
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_password"
+                android:imeOptions="actionSend"
+                android:inputType="textPassword"
+                android:textColor="@color/primaryTextDark"
+                android:textColorHint="@color/secondaryTextDark"
+                android:theme="@style/EditTextDarkAppearance" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/regular_margin"
+            android:layout_marginTop="@dimen/double_margin"
+            android:layout_marginRight="@dimen/regular_margin"
+            android:layout_marginBottom="@dimen/regular_margin"
+            android:minWidth="240dp"
+            android:text="@string/txt_login"
+            android:textColor="@color/primaryTextLight"
+            app:backgroundTint="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textFieldPassword" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_margin"
+            android:background="@color/blue_uv"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            android:textSize="12sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

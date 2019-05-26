@@ -1,11 +1,150 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:textColorPrimary">@color/primaryTextDark</item>
+        <item name="android:textColorSecondary">@color/secondaryTextDark</item>
+
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+        <!--<item name="tabMaxWidth">80dp</item>-->
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">@dimen/regular_margin</item>
+        <item name="tabPaddingEnd">@dimen/regular_margin</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabGravity">fill</item>
+        <item name="android:textColor">@color/white_alpha_70</item>
+    </style>
+
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="EditTextWhiteAppearance">
+        <!-- Used for the bottom line when not selected / focused -->
+        <item name="colorControlNormal">#9e9e9e</item>
+        <item name="colorControlActivated">#FFF</item>
+        <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
+    </style>
+
+    <style name="EditTextDarkAppearance">
+        <!-- Used for the bottom line when not selected / focused -->
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccentDark</item>
+        <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
+    </style>
+
+    <style name="ErrorLabelTextWhiteAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFF</item> <!--apply the color you wat here -->
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="FloatingLabelTextWhiteAppearance" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">#FFF</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">#FFF</item>
+        <item name="colorControlNormal">#9e9e9e</item>
+        <item name="colorControlActivated">#FFF</item>
+    </style>
+
+    <style name="FloatingLabelDarkTextAppearance" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccentDark</item>
+    </style>
+
+    <style name="text_about_card_title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primaryTextDark</item>
+    </style>
+
+    <!--<style name="text_about_card_sub_title">
+        <item name="android:layout_below">@id/txt_about_app_title</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/secondaryTextDark</item>
+    </style>-->
+
+    <style name="text_about_card_content">
+        <item name="android:textColor">@color/secondaryTextDark</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="rowTitle">
+        <item name="android:textColor">@color/primaryTextDark</item>
+        <item name="android:textSize">@dimen/materialize_typography_title</item>
+    </style>
+
+    <style name="rowSubTitle">
+        <item name="android:textColor">@color/secondaryTextDark</item>
+        <item name="android:textSize">@dimen/materialize_typography_subheading</item>
+    </style>
+
+    <style name="rowDate">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondaryTextDark</item>
+        <item name="android:textSize">@dimen/materialize_typography_subheading</item>
+    </style>
+
+    <style name="rowContent">
+        <item name="android:textColor">@color/secondaryTextDark</item>
+        <item name="android:textSize">@dimen/materialize_typography_body1</item>
+    </style>
+
+    <style name="rowContentOne">
+        <item name="android:textColor">@color/secondaryTextDark</item>
+        <item name="android:textSize">@dimen/materialize_typography_body1</item>
+    </style>
+
+    <style name="rowContentTwo">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondaryTextDark</item>
+        <item name="android:textSize">@dimen/materialize_typography_body1</item>
+    </style>
+
+    <style name="rowContentThree">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/secondaryTextDark</item>
+        <item name="android:textSize">@dimen/materialize_typography_body1</item>
+    </style>
+    ic_username_black_24dp.xml
+
+    <style name="rowHeader">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColor">@color/purple_xalapa</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="MaterialCardWithStroke" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">@dimen/regular_margin</item>
+        <item name="strokeColor">@color/black_alpha_50</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="elevation">0dp</item>
     </style>
 
 </resources>

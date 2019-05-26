@@ -14,10 +14,14 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
                  tools:replace="android:supportsRtl">
-        <activity android:name=".controllers.MainActivity">
+        <activity android:name=".controllers.activities.MainActivity">
+            <layout android:defaultHeight="480dp"
+                    android:defaultWidth="270dp"
+                    android:gravity="center"
+                    android:minHeight="270dp"
+                    android:minWidth="270dp" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

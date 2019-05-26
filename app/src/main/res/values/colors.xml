@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorPrimaryLight">@color/white</color>
+
+    <color name="colorAccent">@color/md_blue_700</color>
+    <color name="colorAccentDark">@color/md_blue_900</color>
+    <color name="colorAccentLight">@color/md_blue_500</color>
+
+    <color name="colorPrimaryDayNight">@color/md_blue_700</color>
+    <color name="colorAccentDayNight">@color/md_green_700</color>
+
+    <color name="colorPrimaryEmployees">@color/md_green_700</color>
+    <color name="colorPrimaryDarkEmployees">@color/md_green_900</color>
+    <color name="colorPrimaryLightEmployees">@color/md_green_500</color>
+
+    <color name="colorAccentStudents">@color/md_blue_700</color>
+    <color name="colorAccentDarkStudents">@color/md_blue_900</color>
+    <color name="colorAccentLightStudents">@color/md_blue_500</color>
+
+    <color name="cellBackground">@color/white</color>
+    <color name="windowsBackground">@color/white</color>
+    <color name="cardBackground">@color/white</color>
+    <color name="indicatorBackground">@color/white</color>
+
+    <color name="colorPushNotification">@color/md_blue_700</color>
+    <color name="colorBottomTapNotification">@color/md_red_900</color>
+
+    <color name="colorBasicTrainingArea">@color/md_yellow_700</color>
+    <color name="colorDisciplinaryTrainingArea">@color/md_green_500</color>
+    <color name="colorTrainingAreaTerminal">@color/md_blue_500</color>
+    <color name="colorTrainingAreaOfFreeElection">@color/md_orange_500</color>
+
+    <!--<color name="color_notification">#810202</color>-->
+
+    <!--Text-->
+    <color name="primaryTextDark">@color/text_cod_gray</color>
+    <color name="secondaryTextDark">@color/text_vulcan</color>
+    <color name="disabledTextDark">@color/text_nero</color>
+    <color name="dividersDark">@color/text_bunker</color>
+
+    <color name="primaryTextLight">@color/text_white</color>
+    <color name="secondaryTextLight">@color/text_silver_hand</color>
+    <color name="disabledTextLight">@color/text_dove_grey</color>
+    <color name="dividersWhite">@color/text_tuna</color>
+
+    <!--Text-->
+    <color name="primaryTextAlwaysDark">@color/text_cod_gray</color>
+    <color name="secondaryTextAlwaysDark">@color/text_vulcan</color>
+    <color name="disabledTextAlwaysDark">@color/text_nero</color>
+    <color name="dividersAlwaysDark">@color/text_bunker</color>
+
+    <color name="primaryTextAlwaysLight">@color/text_white</color>
+    <color name="secondaryTextAlwaysLight">@color/text_silver_hand</color>
+    <color name="disabledTextAlwaysLight">@color/text_dove_grey</color>
+    <color name="dividersAlwaysLight">@color/text_tuna</color>
+
+    <color name="black_alpha_10">#1A000000</color>
+    <color name="black_alpha_20">#33000000</color>
+    <color name="black_alpha_30">#4D000000</color>
+    <color name="black_alpha_40">#66000000</color>
+    <color name="black_alpha_50">#80000000</color>
+    <color name="black_alpha_60">#99000000</color>
+    <color name="black_alpha_70">#B3000000</color>
+    <color name="black_alpha_80">#CC000000</color>
+    <color name="black_alpha_90">#E6000000</color>
+
+    <color name="white_alpha_10">#1AFFFFFF</color>
+    <color name="white_alpha_20">#33FFFFFF</color>
+    <color name="white_alpha_30">#4DFFFFFF</color>
+    <color name="white_alpha_40">#66FFFFFF</color>
+    <color name="white_alpha_50">#80FFFFFF</color>
+    <color name="white_alpha_60">#99FFFFFF</color>
+    <color name="white_alpha_70">#B3FFFFFF</color>
+    <color name="white_alpha_80">#CCFFFFFF</color>
+    <color name="white_alpha_90">#E6FFFFFF</color>
+
+    <!--Text colors-->
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_silver_hand">#B3FFFFFF</color>
+    <color name="text_dove_grey">#4DFFFFFF</color>
+    <color name="text_tuna">#1FFFFFFF</color>
+
+    <color name="text_cod_gray">#DE000000</color>
+    <color name="text_vulcan">#8A000000</color>
+    <color name="text_nero">#42000000</color>
+    <color name="text_bunker">#1E000000</color>
+
+    <!--Text colors without alpha-->
+    <color name="text_white_no_alpha">#FFFFFF</color>
+    <color name="text_silver_hand_no_alpha">#C2C2C3</color>
+    <color name="text_dove_grey_no_alpha">#6E7071</color>
+    <color name="text_tuna_no_alpha">#494B4D</color>
+
+    <color name="text_cod_gray_no_alpha">#060707</color>
+    <color name="text_vulcan_no_alpha">#161718</color>
+    <color name="text_nero_no_alpha">#242627</color>
+    <color name="text_bunker_no_alpha">#2B2D2F</color>
+
+    <!--Transparent-->
+    <color name="transparent">#0000</color>
+
+    <!--White and black-->
+    <color name="black">#000</color>
+    <color name="white">#FFF</color>
+
+    <!--UV-->
+    <color name="blue_uv">#0D47A1</color>
+    <color name="green_uv">#2E7D32</color>
+
+    <color name="purple_xalapa">#643db1</color>
+    <color name="green_coatzacoalcos">#669933</color>
+    <color name="blue_cordoba">#3399cc</color>
+    <color name="orange_poza_rica">#cc6600</color>
+    <color name="blue_veracruz">#003399</color>
 </resources>
