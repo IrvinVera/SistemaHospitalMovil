@@ -119,8 +119,8 @@ class LoginController: GenericController() {
                         user.userType = C.UserType.EMPLOYEE
                     }*/
 
-                    login = sessionManager.login(user)
-
+                    //.................................login = sessionManager.login(user)
+                    login = Responses.SUCCESS
                 }.await()
 
                 when (login){

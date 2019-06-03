@@ -1,9 +1,12 @@
 package inventarios.uv.mx.apphospital.model.entities
 
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
 
-open class User{
+@RealmClass
+open class User: RealmObject(){
     @PrimaryKey
     @SerializedName("id")
     var id : Long? = null

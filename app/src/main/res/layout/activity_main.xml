@@ -38,12 +38,5 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:layout_gravity="bottom"
-            android:background="@color/colorPrimary"
-            app:elevation="0dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

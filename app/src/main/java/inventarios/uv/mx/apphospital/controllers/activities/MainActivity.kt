@@ -20,7 +20,10 @@ import inventarios.uv.mx.apphospital.controllers.activities.presenter.MainActivi
 import inventarios.uv.mx.apphospital.controllers.navigation.DrawerBuilder
 import inventarios.uv.mx.apphospital.controllers.navigation.Navigator
 import inventarios.uv.mx.apphospital.model.managers.SessionManager
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), IMainActivity {
 
@@ -39,12 +42,12 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     private var isActivityVisible = false
 
-    val presenter = MainActivityPresenter()
+    val presenter: MainActivityPresenter by inject()
     private val sessionManager = SessionManager()
 
     //private val userManager: UserManager by inject()
 
-    private val navigator = Navigator()
+    private val navigator : Navigator by inject()
 
     private var savedInstanceStateNull = true
 
@@ -161,18 +164,23 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         loggedIn = sessionManager.isLoggedIn()
         //user = userManager.getUser()
 
-        setupUiProfile()
+        //...........setupUiProfile() Temporal hasta que se pueda loguear .......................................................
+        setupToolbar()
+        setupLateralMenu(null)
+        enableTopBar()
+        enableDrawer()
+        navigator.navigateToAppointment()
     }
 
     private fun logout() {
-        uiScope.launch {
-            bgScope.async {
-                SessionManager().logout()
-            }.await()
+        //uiScope.launch { Temporal hasta que se pueda loguear .......................................................
+           // bgScope.async {
+                //SessionManager().logout()
+            //}.await()
             disableTopBar()
             disableDrawer()
             navigator.navigateToLogin()
-        }
+        //}
     }
 
     fun setupUiProfile(){
@@ -181,7 +189,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
             setupLateralMenu(null)
             enableTopBar()
             enableDrawer()
-            //navigator.navigateToDependencies()
+            navigator.navigateToAppointment()
         }else{
             disableTopBar()
             disableDrawer()

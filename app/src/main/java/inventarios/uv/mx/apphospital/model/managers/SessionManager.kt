@@ -27,7 +27,11 @@ class SessionManager {
             val response = serviceClient.login(hospitalLoginRequest)
             if (response?.success == true) {
                 if( save(response.body)){
-                    return Responses.SUCCESS
+                    if(getUserData(user.username!!)) {
+                        return Responses.SUCCESS
+                    }else{
+                        return Responses.CONNECTION_ERROR
+                    }
                 }else{
                     return Responses.DATA_ERROR
                 }
@@ -109,8 +113,8 @@ class SessionManager {
 
     fun deleteToken() {
         HospitalToken().deleteAll()
-        /*User().deleteAll()
-        Verifier().deleteAll()
+        User().deleteAll()
+        /*Verifier().deleteAll()
         Dependency().deleteAll()
         StockTaking().deleteAll()*/
     }
@@ -124,5 +128,10 @@ class SessionManager {
         } catch (ex: Exception) {
             false
         }
+    }
+
+    fun getUserData(username: String): Boolean{
+        val userManager = UserManager()
+        return userManager.fetchByUsername(username)
     }
 }
