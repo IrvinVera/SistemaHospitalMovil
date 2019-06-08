@@ -13,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import inventarios.uv.mx.apphospital.R
 import inventarios.uv.mx.apphospital.controllers.viewcontrollers.generics.GenericController
-import inventarios.uv.mx.apphospital.model.entities.User
 import inventarios.uv.mx.apphospital.model.utils.LogUtils
 import inventarios.uv.mx.apphospital.model.utils.Responses
 import kotlinx.coroutines.async
@@ -99,7 +98,7 @@ class LoginController: GenericController() {
                 }.await()
             }*/
 
-            if (!validateFields) {
+            if (validateFields) {
                 txtFieldUsername.visibility = View.GONE
                 txtFieldPassword.visibility = View.GONE
                 buttonLogin.visibility = View.GONE
@@ -107,20 +106,20 @@ class LoginController: GenericController() {
                 viewLoading.visibility = View.VISIBLE
 
                 bg.async {
-                    var user = User()
-                    user.username = txtFieldUsername.editText?.text.toString()
-                    user.password = txtFieldPassword.editText?.text.toString()
+                    //var user = Persona()
+                    //user.username = txtFieldUsername.editText?.text.toString()
+                    //user.password = txtFieldPassword.editText?.text.toString()
 
                     //if (isStudent) {
-                    user.username = user.username?.toLowerCase()
-                    //user.userType = C.UserType.STUDENT
+                   // user.username = user.username?.toLowerCase()
+                    //NombreUsuario.userType = C.UserType.STUDENT
                     /*} else {
-                        user.username = user.username?.toLowerCase()?.trim()?.replace("@uv.mx", "")
-                        user.userType = C.UserType.EMPLOYEE
+                        NombreUsuario.username = NombreUsuario.username?.toLowerCase()?.trim()?.replace("@uv.mx", "")
+                        NombreUsuario.userType = C.UserType.EMPLOYEE
                     }*/
 
-                    //.................................login = sessionManager.login(user)
-                    login = Responses.SUCCESS
+                    login = sessionManager.login(txtFieldUsername.editText?.text.toString(), txtFieldPassword.editText?.text.toString())
+                    //login = Responses.SUCCESS
                 }.await()
 
                 when (login){

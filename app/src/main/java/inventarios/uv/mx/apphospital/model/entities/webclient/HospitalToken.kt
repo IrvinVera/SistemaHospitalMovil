@@ -11,24 +11,10 @@ open class HospitalToken: RealmObject() {
     @SerializedName("id")
     var id: Long? = null
 
-    @SerializedName("access_token")
-    var accessToken: String? = null
+    @SerializedName("token")
+    var token: String? = null
 
-    @SerializedName("token_type")
-    var tokenType: String? = null
+    @SerializedName("rol")
+    var rol: String? = null
 
-    @SerializedName("refresh_token")
-    var refreshToken: String? = null
-
-    @SerializedName("expires_in")
-    var expiresIn: Long? = null
-
-    @SerializedName("scope")
-    var scope: String? = null
-
-    @SerializedName("created_at")
-    var createdAt: Long? = null
-
-    @SerializedName("update_at")
-    var updatedAt: Long? = null
 }

@@ -7,14 +7,14 @@ import inventarios.uv.mx.apphospital.controllers.events.UsersDeleteEvent
 import inventarios.uv.mx.apphospital.controllers.events.UsersDownloadEvent
 import inventarios.uv.mx.apphospital.controllers.events.UsersEditEvent
 import inventarios.uv.mx.apphospital.controllers.events.UsersUploadEvent
-import inventarios.uv.mx.apphospital.model.entities.User
+import inventarios.uv.mx.apphospital.model.entities.Persona
 import inventarios.uv.mx.apphospital.model.entities.webclient.HospitalRequest
 import inventarios.uv.mx.apphospital.model.utils.EventEnums
-import inventarios.uv.mx.apphospital.model.webclients.UserClient
+import inventarios.uv.mx.apphospital.model.webclients.PersonaClient
 import org.greenrobot.eventbus.EventBus
 
-class UserManager: GenericManager() {
-    override val serviceClient = UserClient()
+class PersonaManager: GenericManager() {
+    override val serviceClient = PersonaClient()
 
     override fun sendEvent(success: Boolean?, httpStatus: Int?, action: EventEnums) {
         when (action){
@@ -50,9 +50,9 @@ class UserManager: GenericManager() {
     override fun save(json: String?): Boolean {
         json?.let {
             try {
-                val typeToken = object : com.google.gson.reflect.TypeToken<User>() {}.type
-                val user: User = Gson().fromJson(json, typeToken)
-                user.createOrUpdate()
+                val typeToken = object : com.google.gson.reflect.TypeToken<Persona>() {}.type
+                val persona: Persona = Gson().fromJson(json, typeToken)
+                persona.createOrUpdate()
                 return true
             } catch (ex: Exception) {
                 ex.printStackTrace()
@@ -61,9 +61,9 @@ class UserManager: GenericManager() {
         } ?: return false
     }
 
-    fun getUser(): User? {
+    fun getUser(): Persona? {
         try {
-            return User().queryFirst()
+            return Persona().queryFirst()
         } catch (ex: Exception) {
             return null
         }

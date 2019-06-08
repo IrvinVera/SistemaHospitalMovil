@@ -3,8 +3,8 @@ package inventarios.uv.mx.apphospital.model.utils
 class Constants {
     object WS_URL {
         @JvmField val scheme: String = "http"
-        @JvmField val baseUrl: String = "148.226.26.147"
-        @JvmField val port: Int = 8080
+        @JvmField val baseUrl: String = "192.168.0.10"
+        @JvmField val port: Int = 58853
         @JvmField val version: String = "v01"
         @JvmField val private: String = "private"
         @JvmField val public: String = "public"
@@ -19,8 +19,10 @@ class Constants {
         @JvmField val regionsPath: String = "regions"
         @JvmField val siiulocationsPath: String = "siiulocations"
         @JvmField val stocktakingPath: String = "stocktakings"
-        @JvmField val usersPath: String = "users"
+        @JvmField val personaPath: String = "Persona"
+        @JvmField val nombreUsuarioPath: String = "buscarPersonaNombreUsuario"
         @JvmField val verifiersPath: String = "verifiers"
+        @JvmField val cuentaPath: String = "Cuenta"
         @JvmField val loginPath: String = "login"
         @JvmField val logoutPath: String = "logout"
         @JvmField val refreshPath: String = "refresh"

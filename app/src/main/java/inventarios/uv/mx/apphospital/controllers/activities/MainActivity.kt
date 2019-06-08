@@ -14,15 +14,16 @@ import com.google.android.material.appbar.AppBarLayout
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import inventarios.uv.mx.apphospital.R
 import inventarios.uv.mx.apphospital.controllers.activities.interfaces.IMainActivity
 import inventarios.uv.mx.apphospital.controllers.activities.presenter.MainActivityPresenter
 import inventarios.uv.mx.apphospital.controllers.navigation.DrawerBuilder
 import inventarios.uv.mx.apphospital.controllers.navigation.Navigator
+import inventarios.uv.mx.apphospital.model.entities.Persona
+import inventarios.uv.mx.apphospital.model.managers.PersonaManager
 import inventarios.uv.mx.apphospital.model.managers.SessionManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), IMainActivity {
@@ -38,14 +39,14 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     var loggedIn = false
 
-    //var user: User? = null
+    var persona: Persona? = null
 
     private var isActivityVisible = false
 
     val presenter: MainActivityPresenter by inject()
     private val sessionManager = SessionManager()
 
-    //private val userManager: UserManager by inject()
+    private val userManager = PersonaManager()
 
     private val navigator : Navigator by inject()
 
@@ -86,7 +87,7 @@ class MainActivity : AppCompatActivity(), IMainActivity {
         isActivityVisible = true
 
         loggedIn = sessionManager.isLoggedIn()
-        //user = userManager.getUser()
+        persona = userManager.getUser()
 
         /*ui.launch {
             bg.async {
@@ -162,25 +163,25 @@ class MainActivity : AppCompatActivity(), IMainActivity {
 
     override fun login() {
         loggedIn = sessionManager.isLoggedIn()
-        //user = userManager.getUser()
+        persona = userManager.getUser()
 
-        //...........setupUiProfile() Temporal hasta que se pueda loguear .......................................................
-        setupToolbar()
+        setupUiProfile() //Temporal hasta que se pueda loguear .......................................................
+        /*setupToolbar()
         setupLateralMenu(null)
         enableTopBar()
-        enableDrawer()
-        navigator.navigateToAppointment()
+        enableDrawer()*/
+        //navigator.navigateToAppointment()
     }
 
     private fun logout() {
-        //uiScope.launch { Temporal hasta que se pueda loguear .......................................................
-           // bgScope.async {
-                //SessionManager().logout()
-            //}.await()
+        uiScope.launch { //Temporal hasta que se pueda loguear .......................................................
+           bgScope.async {
+                SessionManager().logout()
+            }.await()
             disableTopBar()
             disableDrawer()
             navigator.navigateToLogin()
-        //}
+        }
     }
 
     fun setupUiProfile(){
@@ -203,10 +204,18 @@ class MainActivity : AppCompatActivity(), IMainActivity {
     }
 
     private fun setupLateralContent() {
-        accountHeader = AccountHeaderBuilder()
-            .withActivity(this)
+        var accountHeaderBuilder = AccountHeaderBuilder().withActivity(this)
             .withHeaderBackground(R.drawable.img_header)
-            .build()
+        persona = userManager.getUser()
+        persona?.let {persona ->
+            if (persona.idPersona != null && persona.nombre!= null && persona.apellidos != null) {
+                var profile = ProfileDrawerItem()
+                    .withName(persona.nombre + " " + persona.apellidos)
+                    .withIcon(R.drawable.ic_profile_white_80dp)
+                accountHeaderBuilder.addProfiles(profile)
+            }
+        }
+        accountHeader = accountHeaderBuilder.build()
     }
 
     fun createDrawer(savedInstanceState: Bundle?) {

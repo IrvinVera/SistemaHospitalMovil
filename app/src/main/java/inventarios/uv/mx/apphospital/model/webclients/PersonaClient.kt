@@ -7,9 +7,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-class UserClient: WebServiceClient() {
+class PersonaClient: WebServiceClient() {
 
-    override var entitiesPath:String? = Constants.WS_URL.usersPath
+    override var entitiesPath:String? = Constants.WS_URL.personaPath
 
 
     @Throws(Exception::class)
@@ -19,23 +19,18 @@ class UserClient: WebServiceClient() {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
-                .addPathSegment(Constants.WS_URL.version)
-                .addPathSegment(Constants.WS_URL.private)
                 .addPathSegment(entitiesPath)
-                .addPathSegment(Constants.WS_URL.username)
-                .addPathSegment(username)
+                .addPathSegment(Constants.WS_URL.nombreUsuarioPath).addQueryParameter("nombreUsuarioPersona", username)
 
 
         val url = httpUrlBuilder.toString()
 
-        val request = Request.Builder().addHeader("Authorization",hospitalRequest.token!!.tokenType+" "+hospitalRequest.token!!.accessToken).url(url).build()
+        val request = Request.Builder().addHeader("Authorization","bearer "+hospitalRequest.token!!.token).url(url).build()
 
         val response = client.newCall(request).execute()
 
-        if (response.isSuccessful) {
-            return response
-        }
-        throw IllegalArgumentException("Response unsuccessful")
+
+        return response
     }
 
 }

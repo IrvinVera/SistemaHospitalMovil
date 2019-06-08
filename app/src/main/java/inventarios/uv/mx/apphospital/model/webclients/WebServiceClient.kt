@@ -21,14 +21,12 @@ open class WebServiceClient {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
-                .addPathSegment(Constants.WS_URL.version)
-                .addPathSegment(Constants.WS_URL.private)
                 .addPathSegment(entitiesPath)
 
 
         val url = httpUrlBuilder.toString()
 
-        val request = Request.Builder().addHeader("Authorization",hospitalRequest.token!!.tokenType+" "+hospitalRequest.token!!.accessToken).url(url).build()
+        val request = Request.Builder().addHeader("Authorization","bearer "+hospitalRequest.token!!.token).url(url).build()
 
         val response = client.newCall(request).execute()
 
@@ -50,15 +48,13 @@ open class WebServiceClient {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
-                .addPathSegment(Constants.WS_URL.version)
-                .addPathSegment(Constants.WS_URL.private)
                 .addPathSegment(entitiesPath)
                 .addPathSegment(id)
 
 
         val url = httpUrlBuilder.toString()
 
-        val request = Request.Builder().addHeader("Authorization",hospitalRequest.token!!.tokenType+" "+hospitalRequest.token!!.accessToken).url(url).build()
+        val request = Request.Builder().addHeader("Authorization","bearer "+hospitalRequest.token!!.token).url(url).build()
 
         val response = client.newCall(request).execute()
 
@@ -83,14 +79,12 @@ open class WebServiceClient {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
-                .addPathSegment(Constants.WS_URL.version)
-                .addPathSegment(Constants.WS_URL.private)
                 .addPathSegment(entitiesPath)
 
 
         val url = httpUrlBuilder.toString()
 
-        val request = Request.Builder().addHeader("Authorization",hospitalRequest.token!!.tokenType+" "+hospitalRequest.token!!.accessToken).url(url).post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
+        val request = Request.Builder().addHeader("Authorization","bearer "+hospitalRequest.token!!.token).url(url).post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
                 jsonObject.toString())).build()
 
         val response = client.newCall(request).execute()
@@ -116,14 +110,12 @@ open class WebServiceClient {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
-                .addPathSegment(Constants.WS_URL.version)
-                .addPathSegment(Constants.WS_URL.private)
                 .addPathSegment(entitiesPath)
 
 
         val url = httpUrlBuilder.toString()
 
-        val request = Request.Builder().addHeader("Authorization",hospitalRequest.token!!.tokenType+" "+hospitalRequest.token!!.accessToken).url(url).put(RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
+        val request = Request.Builder().addHeader("Authorization","bearer "+hospitalRequest.token!!.token).url(url).put(RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
                 jsonObject.toString())).build()
 
         val response = client.newCall(request).execute()
@@ -150,15 +142,13 @@ open class WebServiceClient {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
-                .addPathSegment(Constants.WS_URL.version)
-                .addPathSegment(Constants.WS_URL.private)
                 .addPathSegment(entitiesPath)
                 .addPathSegment(id)
 
 
         val url = httpUrlBuilder.toString()
 
-        val request = Request.Builder().addHeader("Authorization",hospitalRequest.token!!.tokenType+" "+hospitalRequest.token!!.accessToken).url(url).delete().build()
+        val request = Request.Builder().addHeader("Authorization","bearer "+hospitalRequest.token!!.token).url(url).delete().build()
 
         val response = client.newCall(request).execute()
 

@@ -2,7 +2,6 @@ package inventarios.uv.mx.apphospital.model.managers
 
 import inventarios.uv.mx.apphospital.model.entities.webclient.HospitalRequest
 import inventarios.uv.mx.apphospital.model.utils.EventEnums
-import inventarios.uv.mx.apphospital.model.utils.Responses
 import inventarios.uv.mx.apphospital.model.webclients.WebServiceClient
 import org.json.JSONObject
 
@@ -22,7 +21,6 @@ abstract class GenericManager {
         var status: Int? = 0
 
             try {
-                do {
                     val response = serviceClient.fetchAll(request)
                     val json = response?.body()?.string()
                     status = response?.code()
@@ -31,15 +29,7 @@ abstract class GenericManager {
                     success = response?.isSuccessful ?: false
                     if (success) {
                         success = save(json)
-                        break
-                    }else{
-                        if(SessionManager().refresh(UserManager().getUser()!!) == Responses.SUCCESS){
-                            intents++
-                        }else{
-                            break
-                        }
                     }
-                }while (intents < maxNumberOfIntents)
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
