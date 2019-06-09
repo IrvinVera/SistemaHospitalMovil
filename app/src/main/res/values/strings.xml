@@ -19,4 +19,9 @@
     <string name="txt_reasons">Motivos</string>
     <string name="txt_dependency_manager">Encargado</string>
     <string name="txt_date_stock_taking">Fecha</string>
+    <string name="txt_crear_cita">Reservar consulta</string>
+    <string name="txt_cita_no_pacientes">Numero de pacientes en espera: 0</string>
+    <string name="txt_cita_tiempo_espera">Aviso. El tiempo promedio de duración de las consultas es de 45 minutos.
+    </string>
+    <string name="txt_appointment_creado">Se ha reservado la consulta</string>
 </resources>

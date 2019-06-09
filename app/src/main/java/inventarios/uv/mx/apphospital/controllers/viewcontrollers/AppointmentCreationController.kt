@@ -1,8 +1,9 @@
 package inventarios.uv.mx.apphospital.controllers.viewcontrollers
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.LinearLayout
@@ -11,17 +12,18 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import com.jaredrummler.materialspinner.MaterialSpinner
 import inventarios.uv.mx.apphospital.R
+import inventarios.uv.mx.apphospital.controllers.events.AppointmentDownloadEvent
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentUploadEvent
 import inventarios.uv.mx.apphospital.controllers.viewcontrollers.generics.GenericController
-import inventarios.uv.mx.apphospital.model.utils.LogUtils
+import inventarios.uv.mx.apphospital.model.entities.Persona
+import inventarios.uv.mx.apphospital.model.managers.PersonaManager
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.security.cert.CertPathValidatorException
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+
+
+
 
 class AppointmentCreationController: GenericController() {
 
@@ -32,34 +34,16 @@ class AppointmentCreationController: GenericController() {
 
     //...................val stocktakingManager: StocktakingManager by inject()
 
-    //...................private var dependency: Dependency? = null
+    private var persona: Persona? = null
 
     @BindView(R.id.viewLoadingCreateStock)
     lateinit var  viewLoadingCreateStock : LinearLayout
 
-    @BindView(R.id.textFieldOfficingNumber)
-    lateinit var textFieldOfficingNumber: TextInputLayout
+    @BindView(R.id.buttonAppointment)
+    lateinit var buttonCreateAppointment: Button
 
-    @BindView(R.id.textFieldDependencyManager)
-    lateinit var textFieldDependencyManager: TextInputLayout
-
-    @BindView(R.id.spinnerReasons)
-    lateinit var spinnerReasons: MaterialSpinner
-
-    @BindView(R.id.buttonCreateStock)
-    lateinit var buttonCreateStock: Button
-
-    @BindView(R.id.labelDate)
-    lateinit var labelDate: TextView
-
-    @BindView(R.id.labelOfficingNumber)
-    lateinit var labelOfficingNumber: TextView
-
-    @BindView(R.id.labelReason)
-    lateinit var labelReason: TextView
-
-    @BindView(R.id.labelDependencyManager)
-    lateinit var labelDependencyManager: TextView
+    @BindView(R.id.labelNoPacientes)
+    lateinit var labelNoPacientes: TextView
 
     var itemReasons: MutableList<String>? = null
 
@@ -71,20 +55,14 @@ class AppointmentCreationController: GenericController() {
 
     override fun setupListeners() {
         super.setupListeners()
-        textFieldDependencyManager.editText?.setOnEditorActionListener { view, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEND) {
-                hideKeyboard()
-                //login()
-            }
-            false
-        }
     }
 
 
     override fun setupUI() {
         itemReasons = ArrayList()
-        val targetFormat = SimpleDateFormat("dd-MMMM-yyyy")
-        labelDate.text = labelDate.text.toString()+" "+targetFormat.format(Calendar.getInstance().time)
+        persona = PersonaManager().getUser()
+        /*val targetFormat = SimpleDateFormat("dd-MMMM-yyyy")
+        labelDate.text = labelDate.text.toString()+" "+targetFormat.format(Calendar.getInstance().time)*/
     }
 
     override fun loadContentExtension(firstLoading: Boolean) {
@@ -105,7 +83,7 @@ class AppointmentCreationController: GenericController() {
 
 
     override fun showContentExtension() {
-            spinnerReasons.setItems(itemReasons!!)
+            //spinnerReasons.setItems(itemReasons!!)
 
     }
 
@@ -116,18 +94,28 @@ class AppointmentCreationController: GenericController() {
         }else{
             loadContentExtension(false)
         }*/
-        loadContentExtension()
+        //loadContentExtension()
     }
 
     override fun forceFetchContentExtension() {
     }
 
-    @OnClick(R.id.buttonCreateStock)
-    fun buttonCrateStockOnClick() {
-        createStock()
+    @OnClick(R.id.buttonAppointment)
+    fun buttonCrateAppointmentOnClick() {
+        createAppointment()
     }
 
-    private fun createStock(){
+    private fun createAppointment(){
+        val myAlertDialog = AlertDialog.Builder(this.activity)
+        myAlertDialog.setTitle("Reservar cita")
+        myAlertDialog.setMessage("¿Seguro que deseas reservar una cita para el dia de hoy?")
+        myAlertDialog.setPositiveButton("OK", DialogInterface.OnClickListener { arg0, arg1 ->
+            this.view?.let { Snackbar.make(it, R.string.txt_appointment_creado, Snackbar.LENGTH_SHORT).show() }
+            navigator.navigateToAppointment()
+        })
+        myAlertDialog.setNegativeButton("Cancelar", DialogInterface.OnClickListener { arg0, arg1 ->
+        })
+        myAlertDialog.show()
         /*ui.launch {
             if(validateFields()) {
                 val key = VerifierManager().getVerifier()?.key
@@ -168,7 +156,7 @@ class AppointmentCreationController: GenericController() {
     }
 
 
-    private fun validateFields(): Boolean {
+    /*private fun validateFields(): Boolean {
 
         if (!validateField(textFieldOfficingNumber)) {
             try {
@@ -198,7 +186,7 @@ class AppointmentCreationController: GenericController() {
         }
 
         return true
-    }
+    }*/
 
 
     private fun validateField(textInputLayout: TextInputLayout?): Boolean =
@@ -228,13 +216,26 @@ class AppointmentCreationController: GenericController() {
         }
     }*/
 
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    fun onEvent(event: AppointmentDownloadEvent) {
+        if (isAttached && event.success) {
+            reloadContentAsync()
+        } else if (isAttached && !event.success) {
+            if (itemReasons?.isEmpty() == true) {
+                //desactivar spiner
+            } else {
+                hideLoadingUi()
+            }
+        }
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: AppointmentUploadEvent) {
         if (isAttached && event.success) {
-            navigator.navigateToLogin()
+            this.view?.let { Snackbar.make(it, R.string.txt_appointment_creado, Snackbar.LENGTH_SHORT).show() }
+            navigator.navigateToAppointment()
         } else if (isAttached && !event.success) {
             if (itemReasons?.isEmpty() == true) {
-                //mostrar que necesita conección
+                this.view?.let { Snackbar.make(it, R.string.txt_connection_error, Snackbar.LENGTH_SHORT).show() }
             } else {
                 hideLoadingUi()
             }
