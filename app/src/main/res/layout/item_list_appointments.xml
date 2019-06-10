@@ -16,43 +16,42 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/regular_margin">
 
-        <ImageView
-            android:id="@+id/dependencyImage"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:background="@drawable/drawable_rounded_squared_64dp"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
-
 
         <TextView
-            android:id="@+id/dependencyName"
+            android:id="@+id/idCita"
             style="@style/rowTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/double_margin"
             android:textColor="#1872CB"
-            app:layout_constraintBottom_toTopOf="@+id/dependencyAddress"
-            app:layout_constraintLeft_toRightOf="@+id/dependencyImage"
+            app:layout_constraintBottom_toTopOf="@+id/fechaCita"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UnknownId"
-            tools:text="Dirección de Desarrollo Informático de Apoyo Académico" />
+            tools:text="No cita: 1234" />
 
         <TextView
-            android:id="@+id/dependencyAddress"
+            android:id="@+id/fechaCita"
             style="@style/rowSubTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Universitario Gonzalo Aguirre Beltrán S/N, Zona Universitaria"
+            tools:text="Fecha: 12/junio/2019"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/dependencyName"
-            app:layout_constraintLeft_toLeftOf="@+id/dependencyName"
-            app:layout_constraintRight_toRightOf="@+id/dependencyName"
-            app:layout_constraintTop_toBottomOf="@+id/dependencyName" />
+            app:layout_constraintBottom_toTopOf="@+id/noPacientes"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idCita" />
+
+        <TextView
+                android:id="@+id/noPacientes"
+                style="@style/rowSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Numero de pacientes antes de tu turno: 3"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/fechaCita"
+                app:layout_constraintLeft_toLeftOf="@+id/fechaCita"
+                app:layout_constraintRight_toRightOf="@+id/fechaCita"
+                app:layout_constraintTop_toBottomOf="@+id/fechaCita" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

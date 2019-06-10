@@ -16,13 +16,14 @@ import inventarios.uv.mx.apphospital.R
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentDownloadEvent
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentUploadEvent
 import inventarios.uv.mx.apphospital.controllers.viewcontrollers.generics.GenericController
+import inventarios.uv.mx.apphospital.model.entities.Appointment
 import inventarios.uv.mx.apphospital.model.entities.Persona
+import inventarios.uv.mx.apphospital.model.managers.AppointmentManager
 import inventarios.uv.mx.apphospital.model.managers.PersonaManager
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.security.cert.CertPathValidatorException
-
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AppointmentCreationController: GenericController() {
@@ -30,9 +31,7 @@ class AppointmentCreationController: GenericController() {
     override var debugTag = this.javaClass.simpleName
     override var controllerId = R.layout.controller_create_appointment
 
-    //...................override val manager: ReasonManager by inject()
-
-    //...................val stocktakingManager: StocktakingManager by inject()
+    val manager = AppointmentManager()
 
     private var persona: Persona? = null
 
@@ -45,9 +44,12 @@ class AppointmentCreationController: GenericController() {
     @BindView(R.id.labelNoPacientes)
     lateinit var labelNoPacientes: TextView
 
-    var itemReasons: MutableList<String>? = null
+    @BindView(R.id.labelFechaCreacion)
+    lateinit var labelFechaCreacion: TextView
 
-    var content: MutableList<CertPathValidatorException.Reason>? = null
+    var noPacientes: String = ""
+
+    var content: MutableList<Appointment>? = null
 
     /*fun setDependency(dependency: Dependency){
         this.dependency = dependency
@@ -57,20 +59,17 @@ class AppointmentCreationController: GenericController() {
         super.setupListeners()
     }
 
-
     override fun setupUI() {
-        itemReasons = ArrayList()
-        persona = PersonaManager().getUser()
-        /*val targetFormat = SimpleDateFormat("dd-MMMM-yyyy")
-        labelDate.text = labelDate.text.toString()+" "+targetFormat.format(Calendar.getInstance().time)*/
+        val targetFormat = SimpleDateFormat("dd-MMMM-yyyy")
+        labelFechaCreacion.text = "Fecha: "+targetFormat.format(Calendar.getInstance().time)
     }
 
     override fun loadContentExtension(firstLoading: Boolean) {
-        /*content = manager.load() as MutableList<CertPathValidatorException.Reason>
+        /*content = manager.loadNoPacientes() as MutableList<Appointment> Aqui va el de loadNoPacientes
         content?.forEach{ item ->
-            itemReasons?.add(item.description.toString())
+            noPacientes = item.noPacientes.toString()
         }*/
-        if (itemReasons?.isNotEmpty() == true) {
+        if (noPacientes != "") {
             showContentUi()
         } else {
             if (firstLoading) {
@@ -84,17 +83,17 @@ class AppointmentCreationController: GenericController() {
 
     override fun showContentExtension() {
             //spinnerReasons.setItems(itemReasons!!)
+        //labelNoPacientes.text = "Número de pacientes en espera: "+noPacientes
 
     }
 
     override fun fetchContentExtension() {
-       /* val existsContent= manager.load() as ArrayList<CertPathValidatorException.Reason>
+       /*val existsContent= manager.loadNoPacientes() as ArrayList<Appointment>
         if (existsContent.isNullOrEmpty()) {
-            manager.fetchAll()
+            manager.fetchAppointmentNumberPatients()
         }else{
             loadContentExtension(false)
         }*/
-        //loadContentExtension()
     }
 
     override fun forceFetchContentExtension() {
@@ -106,9 +105,10 @@ class AppointmentCreationController: GenericController() {
     }
 
     private fun createAppointment(){
+        persona = PersonaManager().getUser()
         val myAlertDialog = AlertDialog.Builder(this.activity)
-        myAlertDialog.setTitle("Reservar cita")
-        myAlertDialog.setMessage("¿Seguro que deseas reservar una cita para el dia de hoy?")
+        myAlertDialog.setTitle("Reservar consulta")
+        myAlertDialog.setMessage("¿Seguro que deseas reservar una consulta para el dia de hoy?")
         myAlertDialog.setPositiveButton("OK", DialogInterface.OnClickListener { arg0, arg1 ->
             this.view?.let { Snackbar.make(it, R.string.txt_appointment_creado, Snackbar.LENGTH_SHORT).show() }
             navigator.navigateToAppointment()
@@ -221,7 +221,7 @@ class AppointmentCreationController: GenericController() {
         if (isAttached && event.success) {
             reloadContentAsync()
         } else if (isAttached && !event.success) {
-            if (itemReasons?.isEmpty() == true) {
+            if (noPacientes == "") {
                 //desactivar spiner
             } else {
                 hideLoadingUi()
@@ -234,8 +234,9 @@ class AppointmentCreationController: GenericController() {
             this.view?.let { Snackbar.make(it, R.string.txt_appointment_creado, Snackbar.LENGTH_SHORT).show() }
             navigator.navigateToAppointment()
         } else if (isAttached && !event.success) {
-            if (itemReasons?.isEmpty() == true) {
-                this.view?.let { Snackbar.make(it, R.string.txt_connection_error, Snackbar.LENGTH_SHORT).show() }
+            this.view?.let { Snackbar.make(it, R.string.txt_connection_error, Snackbar.LENGTH_SHORT).show() }
+            if (noPacientes == "") {
+
             } else {
                 hideLoadingUi()
             }

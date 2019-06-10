@@ -7,6 +7,9 @@ import inventarios.uv.mx.apphospital.controllers.adapters.AppointmentItem
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentDownloadEvent
 import inventarios.uv.mx.apphospital.controllers.viewcontrollers.generics.GenericListController
 import inventarios.uv.mx.apphospital.model.entities.Appointment
+import inventarios.uv.mx.apphospital.model.entities.Persona
+import inventarios.uv.mx.apphospital.model.managers.AppointmentManager
+import inventarios.uv.mx.apphospital.model.managers.PersonaManager
 import inventarios.uv.mx.apphospital.model.managers.SessionManager
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -16,8 +19,9 @@ class AppointmentController : GenericListController() {
 
     override var debugTag = this.javaClass.simpleName
 
-    //....................override val manager: DependencyManager by inject()
+   override val manager = AppointmentManager()
     val sessionManager = SessionManager()
+    private var persona: Persona? = null
 
     var fastAdapter: FastAdapter<AppointmentItem>? = null
     var itemAdapter: ItemAdapter<AppointmentItem>? = null
@@ -70,9 +74,10 @@ class AppointmentController : GenericListController() {
     }
 
     override fun fetchContentExtension() {
-        /*val existsContent= manager.load() as ArrayList<Dependency>
+        persona = PersonaManager().getUser()
+        /*val existsContent= manager.loadById(persona?.idPersona!!) as ArrayList<Appointment>
         if (existsContent.isNullOrEmpty()) {
-            manager.fetchAll()
+            manager.fetchAppointmentById(persona?.idPersona!!)
         }else{
             loadContentExtension(false)
         }*/
@@ -80,13 +85,14 @@ class AppointmentController : GenericListController() {
     }
 
     override fun forceFetchContentExtension() {
-        //manager.fetchAll()
+        persona = PersonaManager().getUser()
+        //manager.fetchAppointmentById(persona?.idPersona!!)
     }
 
     override fun loadContentExtension(firstLoading: Boolean) {
         /*adapterItems?.clear()
 
-        content = manager.load() as MutableList<Dependency>
+        content = manager.loadById(persona?.idPersona!!) as MutableList<Appointment>
 
         content?.forEach { item ->
 

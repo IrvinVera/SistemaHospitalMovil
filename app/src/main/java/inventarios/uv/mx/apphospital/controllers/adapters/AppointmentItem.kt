@@ -1,7 +1,6 @@
 package inventarios.uv.mx.apphospital.controllers.adapters
 
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
@@ -9,6 +8,8 @@ import butterknife.ButterKnife
 import com.mikepenz.fastadapter.items.AbstractItem
 import inventarios.uv.mx.apphospital.R
 import inventarios.uv.mx.apphospital.model.entities.Appointment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AppointmentItem : AbstractItem<AppointmentItem, AppointmentItem.ViewHolder>() {
 
@@ -37,16 +38,16 @@ class AppointmentItem : AbstractItem<AppointmentItem, AppointmentItem.ViewHolder
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @JvmField
-        @BindView(R.id.dependencyName)
-        var txtNameDependency : TextView? =  null
+        @BindView(R.id.idCita)
+        var txtidAppointment: TextView? =  null
 
         @JvmField
-        @BindView(R.id.dependencyAddress)
-        var txtAddressDependency : TextView? =  null
+        @BindView(R.id.fechaCita)
+        var txtDateAppointment : TextView? =  null
 
         @JvmField
-        @BindView(R.id.dependencyImage)
-        var imgDependency : ImageView? =  null
+        @BindView(R.id.noPacientes)
+        var txtNoPatients: TextView? =  null
 
         init {
             ButterKnife.bind(this, itemView)
@@ -55,13 +56,15 @@ class AppointmentItem : AbstractItem<AppointmentItem, AppointmentItem.ViewHolder
         fun bind(item: Appointment) {
             /*txtNameDependency?.text = item.name ?: itemView.context.getString(R.string.txt_unaviable)
             txtAddressDependency?.text = item.address ?: itemView.context.getString(R.string.txt_unaviable)*/
+            txtidAppointment?.text = "Id de la Cita: "+item.id .toString()
+            txtNoPatients?.text = "Número de pacientes antes de tu turno: "+item.noPacientes .toString()
+            val targetFormat = SimpleDateFormat("dd-MMMM-yyyy")
+            txtDateAppointment?.text = "Fecha: "+targetFormat.format(Calendar.getInstance().time)
 
         }
 
         fun reset() {
 
-            txtNameDependency?.text = ""
-            txtAddressDependency?.text = ""
         }
 
     }

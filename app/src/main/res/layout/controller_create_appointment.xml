@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/buttonCreateStock">
+                app:layout_constraintBottom_toTopOf="@+id/buttonAppointment">
 
             <TextView
                     android:id="@+id/labelTitle"
@@ -69,6 +69,17 @@
                     android:layout_height="wrap_content"
                     android:text="@string/txt_crear_cita"/>
 
+            <TextView
+                    android:id="@+id/labelFechaCreacion"
+                    style="@style/rowSubTitle"
+                    android:layout_marginLeft="@dimen/regular_margin"
+                    android:layout_marginTop="@dimen/regular_margin"
+                    android:layout_marginRight="@dimen/regular_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha: "
+                    app:layout_constraintTop_toBottomOf="@+id/labelTitle"/>
+
 
             <TextView
                     android:id="@+id/labelNoPacientes"
@@ -79,7 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_cita_no_pacientes"
-                    app:layout_constraintTop_toBottomOf="@+id/labelTitle"/>
+                    app:layout_constraintTop_toBottomOf="@+id/labelFechaCreacion"/>
 
             <TextView
                     android:id="@+id/labelTiempoEspera"
