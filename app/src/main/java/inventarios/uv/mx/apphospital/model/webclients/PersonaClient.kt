@@ -19,6 +19,7 @@ class PersonaClient: WebServiceClient() {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
+                .addPathSegment(Constants.WS_URL.api)
                 .addPathSegment(entitiesPath)
                 .addPathSegment(Constants.WS_URL.nombreUsuarioPath).addQueryParameter("nombreUsuarioPersona", username)
 

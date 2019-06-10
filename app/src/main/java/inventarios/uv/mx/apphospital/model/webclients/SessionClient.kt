@@ -16,6 +16,7 @@ class SessionClient {
                 .scheme(Constants.WS_URL.scheme)
                 .host(Constants.WS_URL.baseUrl)
                 .port(Constants.WS_URL.port)
+                .addPathSegment(Constants.WS_URL.api)
                 .addPathSegment(Constants.WS_URL.cuentaPath)
                 .addPathSegment(Constants.WS_URL.loginPath)
 
