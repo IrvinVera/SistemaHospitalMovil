@@ -18,28 +18,16 @@
 
 
         <TextView
-            android:id="@+id/idCita"
+            android:id="@+id/fechaCita"
             style="@style/rowTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#1872CB"
-            app:layout_constraintBottom_toTopOf="@+id/fechaCita"
+            app:layout_constraintBottom_toTopOf="@+id/noPacientes"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UnknownId"
-            tools:text="No cita: 1234" />
-
-        <TextView
-            android:id="@+id/fechaCita"
-            style="@style/rowSubTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Fecha: 12/junio/2019"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/noPacientes"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idCita" />
+            tools:text="Fecha: 12/junio/2019" />
 
         <TextView
                 android:id="@+id/noPacientes"

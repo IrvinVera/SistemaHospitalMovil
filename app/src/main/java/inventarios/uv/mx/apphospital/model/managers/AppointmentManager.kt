@@ -1,5 +1,6 @@
 package inventarios.uv.mx.apphospital.model.managers
 
+import com.vicpin.krealmextensions.createOrUpdate
 import com.vicpin.krealmextensions.query
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentDeleteEvent
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentDownloadEvent
@@ -10,6 +11,7 @@ import inventarios.uv.mx.apphospital.model.entities.webclient.HospitalRequest
 import inventarios.uv.mx.apphospital.model.utils.EventEnums
 import inventarios.uv.mx.apphospital.model.webclients.AppointmentClient
 import org.greenrobot.eventbus.EventBus
+import org.json.JSONObject
 
 class AppointmentManager: GenericManager() {
     override val serviceClient = AppointmentClient()
@@ -23,6 +25,27 @@ class AppointmentManager: GenericManager() {
 
     override fun save(json: String?): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun saveAppointment(json: String?, citaReservada: Boolean): Boolean {
+        json?.let {
+            try {
+                val jsonObject = JSONObject(json)
+                val appointment = Appointment()
+                if(citaReservada) {
+                    appointment.id = 1
+                    appointment.noPacientes = jsonObject.getString("noPacientesPrevios")
+                }else{
+                    appointment.id = -1
+                    appointment.noPacientes = jsonObject.getString("noPacientesEspera")
+                }
+                appointment.createOrUpdate()
+                return true
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+                return false
+            }
+        } ?: return false
     }
 
     override fun sendEvent(success: Boolean?, httpStatus: Int?, action: EventEnums) {
@@ -60,13 +83,14 @@ class AppointmentManager: GenericManager() {
         try {
             /*jsonObject.put("officingNumber", stocktaking.officingNumber)
             jsonObject.put("managerName", stocktaking.managerName)*/
-                /*val response = serviceClient.postStocktaking(personaId)
+                val response = serviceClient.postCita(personaId.toString(), request)
                 val json = response?.body()?.string()
                 status = response?.code()
                 println(status.toString()+"....................................................................")
                 println(json+".................................................................................")
                 success = response?.isSuccessful ?: false
-                if (success) {
+                /*if (success) {
+
                     stocktaking.createOrUpdate()
                 }*/
         } catch (ex: Exception) {
@@ -75,22 +99,22 @@ class AppointmentManager: GenericManager() {
         sendEvent(success, status, EventEnums.POST)
     }
 
-    fun fetchAppointmentById(personaId: Long) {
+    fun fetchAppointmentPositionById(personaId: Long) {
         val request = HospitalRequest()
         request.token = SessionManager().getToken()
         var success = false
         var status: Int? = 0
 
         try {
-            /*val response = serviceClient.fetchByUsername(username, request)
+            val response = serviceClient.fetchNoPacientesPrevios(personaId.toString(), request)
             val json = response?.body()?.string()
             status = response?.code()
             println(status.toString()+"....................................................................")
             println(json+".................................................................................")
             success = response?.isSuccessful ?: false
             if (success) {
-                success = save(json)
-            }*/
+                success = saveAppointment(json, true)
+            }
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
@@ -104,24 +128,25 @@ class AppointmentManager: GenericManager() {
         var status: Int? = 0
 
         try {
-            /*val response = serviceClient.fetchByUsername(username, request)
+            val response = serviceClient.fetchNoPacientesEspera(request)
             val json = response?.body()?.string()
             status = response?.code()
             println(status.toString()+"....................................................................")
             println(json+".................................................................................")
             success = response?.isSuccessful ?: false
             if (success) {
-                success = save(json)
-            }*/
+                success = saveAppointment(json, false)
+            }
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
         sendEvent(success, status, EventEnums.GET)
     }
 
-    fun loadById(id: Long): List<Appointment> {
+    fun loadCita(): List<Appointment> {
         try {
-            return Appointment().query { equalTo("id", id) }
+            val long : Long = 1
+            return Appointment().query { equalTo("id", long) }
         }catch (ex: Exception){
             ex.printStackTrace()
             return ArrayList()

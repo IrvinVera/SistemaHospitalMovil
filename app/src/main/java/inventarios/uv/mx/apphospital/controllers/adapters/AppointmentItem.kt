@@ -38,10 +38,6 @@ class AppointmentItem : AbstractItem<AppointmentItem, AppointmentItem.ViewHolder
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @JvmField
-        @BindView(R.id.idCita)
-        var txtidAppointment: TextView? =  null
-
-        @JvmField
         @BindView(R.id.fechaCita)
         var txtDateAppointment : TextView? =  null
 
@@ -56,8 +52,7 @@ class AppointmentItem : AbstractItem<AppointmentItem, AppointmentItem.ViewHolder
         fun bind(item: Appointment) {
             /*txtNameDependency?.text = item.name ?: itemView.context.getString(R.string.txt_unaviable)
             txtAddressDependency?.text = item.address ?: itemView.context.getString(R.string.txt_unaviable)*/
-            txtidAppointment?.text = "Id de la Cita: "+item.id .toString()
-            txtNoPatients?.text = "Número de pacientes antes de tu turno: "+item.noPacientes .toString()
+            txtNoPatients?.text = "Número de pacientes antes de tu turno: "+item.noPacientes
             val targetFormat = SimpleDateFormat("dd-MMMM-yyyy")
             txtDateAppointment?.text = "Fecha: "+targetFormat.format(Calendar.getInstance().time)
 

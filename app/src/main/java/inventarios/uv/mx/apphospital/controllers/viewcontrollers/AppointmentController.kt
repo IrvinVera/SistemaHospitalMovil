@@ -75,9 +75,9 @@ class AppointmentController : GenericListController() {
 
     override fun fetchContentExtension() {
         persona = PersonaManager().getUser()
-        /*val existsContent= manager.loadById(persona?.idPersona!!) as ArrayList<Appointment>
+        /*val existsContent= manager.loadCita() as ArrayList<Appointment>
         if (existsContent.isNullOrEmpty()) {
-            manager.fetchAppointmentById(persona?.idPersona!!)
+            manager.fetchAppointmentPositionById(persona?.idPersona!!)
         }else{
             loadContentExtension(false)
         }*/
@@ -86,13 +86,13 @@ class AppointmentController : GenericListController() {
 
     override fun forceFetchContentExtension() {
         persona = PersonaManager().getUser()
-        //manager.fetchAppointmentById(persona?.idPersona!!)
+        //manager.fetchAppointmentPositionById(persona?.idPersona!!)
     }
 
     override fun loadContentExtension(firstLoading: Boolean) {
         /*adapterItems?.clear()
 
-        content = manager.loadById(persona?.idPersona!!) as MutableList<Appointment>
+        content = manager.loadCita() as MutableList<Appointment>
 
         content?.forEach { item ->
 

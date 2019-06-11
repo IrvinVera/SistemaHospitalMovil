@@ -11,5 +11,5 @@ open class Appointment: RealmObject() {
     @SerializedName("id")
     var id : Long? = null
     @SerializedName("noPacientes")
-    var noPacientes : Long? = null
+    var noPacientes : String? = null
 }

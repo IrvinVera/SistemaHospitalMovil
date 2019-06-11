@@ -27,6 +27,10 @@ class Constants {
         @JvmField val loginPath: String = "login"
         @JvmField val logoutPath: String = "logout"
         @JvmField val refreshPath: String = "refresh"
+        @JvmField val listEsperaPath: String = "ListaEspera"
+        @JvmField val obtenerTodosLosPacientes: String = "obtenerTotalPacientes"
+        @JvmField val obtenerPacientesPrevios: String = "obtenerPosicionPaciente"
+        @JvmField val agregar: String = "agregar"
 
     }
 }
