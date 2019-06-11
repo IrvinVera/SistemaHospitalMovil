@@ -8,12 +8,12 @@
     <string name="txt_required_username">Nombre de usuario requerido</string>
     <string name="txt_required_password">Contraseña requerida</string>
     <string name="txt_invalid_user_or_password">Verifique su nombre de usuario y contraseña</string>
-    <string name="txt_connection_error">No se puede conectar con el servidor,\\nintentelo más tarde</string>
+    <string name="txt_connection_error">No se puede conectar con el servidor, verifique su conexión a internet</string>
     <string name="txt_data_error">No se pudo almacenar en el dispositivo</string>
     <string name="drawer_item_logout">Cerrar sesión</string>
     <string name="txt_content_unavailable">Contenido no disponible</string>
     <string name="txt_no_appointments">No existen citas</string>
-    <string name="txt_create">Crear</string>
+    <string name="txt_create">Reservar</string>
     <string name="txt_officing_number">Numero oficio</string>
     <string name="txt_reason_review">Motivo</string>
     <string name="txt_reasons">Motivos</string>

@@ -13,6 +13,7 @@ import butterknife.OnClick
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import inventarios.uv.mx.apphospital.R
+import inventarios.uv.mx.apphospital.controllers.events.AppointmentConnectionError
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentDownloadEvent
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentUploadEvent
 import inventarios.uv.mx.apphospital.controllers.viewcontrollers.generics.GenericController
@@ -20,6 +21,8 @@ import inventarios.uv.mx.apphospital.model.entities.Appointment
 import inventarios.uv.mx.apphospital.model.entities.Persona
 import inventarios.uv.mx.apphospital.model.managers.AppointmentManager
 import inventarios.uv.mx.apphospital.model.managers.PersonaManager
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
@@ -65,10 +68,10 @@ class AppointmentCreationController: GenericController() {
     }
 
     override fun loadContentExtension(firstLoading: Boolean) {
-        /*content = manager.loadNoPacientes() as MutableList<Appointment> Aqui va el de loadNoPacientes
+        content = manager.loadNoPacientes() as MutableList<Appointment>
         content?.forEach{ item ->
             noPacientes = item.noPacientes.toString()
-        }*/
+        }
         if (noPacientes != "") {
             showContentUi()
         } else {
@@ -82,16 +85,15 @@ class AppointmentCreationController: GenericController() {
 
 
     override fun showContentExtension() {
-            //spinnerReasons.setItems(itemReasons!!)
-        //labelNoPacientes.text = "Número de pacientes en espera: "+noPacientes
+        labelNoPacientes.text = "Número de pacientes en espera: "+noPacientes
 
     }
 
     override fun fetchContentExtension() {
-       /*val existsContent= manager.loadNoPacientes() as ArrayList<Appointment>
-        if (existsContent.isNullOrEmpty()) {
+       //val existsContent= manager.loadNoPacientes() as ArrayList<Appointment>
+        //if (existsContent.isNullOrEmpty()) {
             manager.fetchAppointmentNumberPatients()
-        }else{
+        /*}else{
             loadContentExtension(false)
         }*/
     }
@@ -110,8 +112,21 @@ class AppointmentCreationController: GenericController() {
         myAlertDialog.setTitle("Reservar consulta")
         myAlertDialog.setMessage("¿Seguro que deseas reservar una consulta para el dia de hoy?")
         myAlertDialog.setPositiveButton("OK", DialogInterface.OnClickListener { arg0, arg1 ->
-            this.view?.let { Snackbar.make(it, R.string.txt_appointment_creado, Snackbar.LENGTH_SHORT).show() }
-            navigator.navigateToAppointment()
+            ui.launch {
+                labelNoPacientes.visibility = View.GONE
+                labelFechaCreacion.visibility = View.GONE
+                buttonCreateAppointment.visibility = View.GONE
+                viewLoadingCreateStock.visibility = View.VISIBLE
+                bg.async {
+                    manager.postAppointment(persona?.idPersona!!)
+                }.await()
+            }
+            if (isAttached) {
+                labelNoPacientes.visibility = View.VISIBLE
+                labelFechaCreacion.visibility = View.VISIBLE
+                buttonCreateAppointment.visibility = View.VISIBLE
+                viewLoadingCreateStock.visibility = View.GONE
+            }
         })
         myAlertDialog.setNegativeButton("Cancelar", DialogInterface.OnClickListener { arg0, arg1 ->
         })
@@ -221,11 +236,7 @@ class AppointmentCreationController: GenericController() {
         if (isAttached && event.success) {
             reloadContentAsync()
         } else if (isAttached && !event.success) {
-            if (noPacientes == "") {
-                //desactivar spiner
-            } else {
-                hideLoadingUi()
-            }
+            hideLoadingUi()
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -234,13 +245,13 @@ class AppointmentCreationController: GenericController() {
             this.view?.let { Snackbar.make(it, R.string.txt_appointment_creado, Snackbar.LENGTH_SHORT).show() }
             navigator.navigateToAppointment()
         } else if (isAttached && !event.success) {
-            this.view?.let { Snackbar.make(it, R.string.txt_connection_error, Snackbar.LENGTH_SHORT).show() }
-            if (noPacientes == "") {
-
-            } else {
-                hideLoadingUi()
-            }
+            navigator.navigateToAppointment()
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: AppointmentConnectionError) {
+        navigator.navigateToAppointment()
     }
 
 }

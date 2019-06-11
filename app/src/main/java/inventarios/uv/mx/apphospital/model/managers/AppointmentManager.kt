@@ -1,11 +1,9 @@
 package inventarios.uv.mx.apphospital.model.managers
 
 import com.vicpin.krealmextensions.createOrUpdate
+import com.vicpin.krealmextensions.deleteAll
 import com.vicpin.krealmextensions.query
-import inventarios.uv.mx.apphospital.controllers.events.AppointmentDeleteEvent
-import inventarios.uv.mx.apphospital.controllers.events.AppointmentDownloadEvent
-import inventarios.uv.mx.apphospital.controllers.events.AppointmentEditEvent
-import inventarios.uv.mx.apphospital.controllers.events.AppointmentUploadEvent
+import inventarios.uv.mx.apphospital.controllers.events.*
 import inventarios.uv.mx.apphospital.model.entities.Appointment
 import inventarios.uv.mx.apphospital.model.entities.webclient.HospitalRequest
 import inventarios.uv.mx.apphospital.model.utils.EventEnums
@@ -114,8 +112,12 @@ class AppointmentManager: GenericManager() {
             success = response?.isSuccessful ?: false
             if (success) {
                 success = saveAppointment(json, true)
+            }else{
+                Appointment().deleteAll()
             }
         } catch (ex: Exception) {
+            EventBus.getDefault().post(
+                AppointmentConnectionError())
             ex.printStackTrace()
         }
         sendEvent(success, status, EventEnums.GET)
@@ -138,6 +140,8 @@ class AppointmentManager: GenericManager() {
                 success = saveAppointment(json, false)
             }
         } catch (ex: Exception) {
+            EventBus.getDefault().post(
+                AppointmentConnectionError())
             ex.printStackTrace()
         }
         sendEvent(success, status, EventEnums.GET)

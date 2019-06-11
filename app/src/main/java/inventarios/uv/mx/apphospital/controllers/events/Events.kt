@@ -13,3 +13,5 @@ class AppointmentDownloadEvent(success: Boolean, status: Int) : GenericDownloadE
 class AppointmentUploadEvent(success: Boolean, status: Int) : GenericDownloadEvent(success, status)
 class AppointmentEditEvent(success: Boolean, status: Int) : GenericDownloadEvent(success, status)
 class AppointmentDeleteEvent(success: Boolean, status: Int) : GenericDownloadEvent(success, status)
+
+class AppointmentConnectionError()

@@ -52,7 +52,11 @@ class AppointmentItem : AbstractItem<AppointmentItem, AppointmentItem.ViewHolder
         fun bind(item: Appointment) {
             /*txtNameDependency?.text = item.name ?: itemView.context.getString(R.string.txt_unaviable)
             txtAddressDependency?.text = item.address ?: itemView.context.getString(R.string.txt_unaviable)*/
-            txtNoPatients?.text = "Número de pacientes antes de tu turno: "+item.noPacientes
+            if(item.noPacientes.equals("0")){
+                txtNoPatients?.text = "Ahora es tu turno"
+            }else{
+                txtNoPatients?.text = "Número de pacientes antes de tu turno: "+item.noPacientes
+            }
             val targetFormat = SimpleDateFormat("dd-MMMM-yyyy")
             txtDateAppointment?.text = "Fecha: "+targetFormat.format(Calendar.getInstance().time)
 

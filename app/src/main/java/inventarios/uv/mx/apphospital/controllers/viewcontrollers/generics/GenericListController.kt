@@ -248,6 +248,7 @@ abstract class GenericListController: Controller() {
     fun showEmptyUi() {
         if (isAttached) {
             ui.launch {
+                fbuttonNewStock?.show()
                 swipeRefresh?.isRefreshing = false
                 progressBar?.visibility = View.GONE
                 txtProgress?.visibility = View.VISIBLE

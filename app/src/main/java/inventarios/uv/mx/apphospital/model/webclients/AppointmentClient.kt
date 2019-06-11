@@ -59,7 +59,7 @@ class AppointmentClient: WebServiceClient() {
             .port(Constants.WS_URL.port)
             .addPathSegment(Constants.WS_URL.api)
             .addPathSegment(entitiesPath)
-            .addPathSegment(Constants.WS_URL.agregar).addQueryParameter("idPaciente", idPaciente)
+            .addPathSegment(Constants.WS_URL.agregar).addQueryParameter("idPersona", idPaciente)
 
 
         val url = httpUrlBuilder.toString()

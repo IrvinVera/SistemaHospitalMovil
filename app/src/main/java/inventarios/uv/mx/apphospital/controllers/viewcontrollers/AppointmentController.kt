@@ -1,9 +1,11 @@
 package inventarios.uv.mx.apphospital.controllers.viewcontrollers
 
+import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import inventarios.uv.mx.apphospital.R
 import inventarios.uv.mx.apphospital.controllers.adapters.AppointmentItem
+import inventarios.uv.mx.apphospital.controllers.events.AppointmentConnectionError
 import inventarios.uv.mx.apphospital.controllers.events.AppointmentDownloadEvent
 import inventarios.uv.mx.apphospital.controllers.viewcontrollers.generics.GenericListController
 import inventarios.uv.mx.apphospital.model.entities.Appointment
@@ -76,21 +78,20 @@ class AppointmentController : GenericListController() {
     override fun fetchContentExtension() {
         persona = PersonaManager().getUser()
         /*val existsContent= manager.loadCita() as ArrayList<Appointment>
-        if (existsContent.isNullOrEmpty()) {
-            manager.fetchAppointmentPositionById(persona?.idPersona!!)
-        }else{
+        if (existsContent.isNullOrEmpty()) {*/
+        manager.fetchAppointmentPositionById(persona?.idPersona!!)
+        /*}else{
             loadContentExtension(false)
         }*/
-        loadContentExtension(false)
     }
 
     override fun forceFetchContentExtension() {
         persona = PersonaManager().getUser()
-        //manager.fetchAppointmentPositionById(persona?.idPersona!!)
+        manager.fetchAppointmentPositionById(persona?.idPersona!!)
     }
 
     override fun loadContentExtension(firstLoading: Boolean) {
-        /*adapterItems?.clear()
+        adapterItems?.clear()
 
         content = manager.loadCita() as MutableList<Appointment>
 
@@ -104,7 +105,7 @@ class AppointmentController : GenericListController() {
             adapterItems?.add(adapterItem)
         }
 
-        adapterItems = adapterItems?.toSet()?.toMutableList()*/
+        adapterItems = adapterItems?.toSet()?.toMutableList()
 
 
         if (adapterItems?.isNotEmpty() == true) {
@@ -119,6 +120,7 @@ class AppointmentController : GenericListController() {
     }
 
     override fun showContentExtension() {
+        fbuttonNewStock?.hide()
         itemAdapter?.adapterItems?.let {
             //FastAdapterDiffUtil.set(itemAdapter, adapterItems)
             itemAdapter?.setNewList(adapterItems)
@@ -136,11 +138,16 @@ class AppointmentController : GenericListController() {
         if (isAttached && event.success) {
             reloadContentAsync()
         } else if (isAttached && !event.success) {
-            if (adapterItems?.isEmpty() == true) {
+            //if (adapterItems?.isEmpty() == true) {
                 showEmptyUi()
-            } else {
-                hideLoadingUi()
-            }
+            //} else {
+                //hideLoadingUi()
+            //}
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: AppointmentConnectionError) {
+        this.view?.let { Snackbar.make(it, R.string.txt_connection_error, Snackbar.LENGTH_SHORT).show() }
     }
 }

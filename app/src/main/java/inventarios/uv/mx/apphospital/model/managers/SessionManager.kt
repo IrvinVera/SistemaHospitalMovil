@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.vicpin.krealmextensions.createOrUpdate
 import com.vicpin.krealmextensions.deleteAll
 import com.vicpin.krealmextensions.queryFirst
+import inventarios.uv.mx.apphospital.model.entities.Appointment
 import inventarios.uv.mx.apphospital.model.entities.Persona
 import inventarios.uv.mx.apphospital.model.entities.webclient.HospitalLogin
 import inventarios.uv.mx.apphospital.model.entities.webclient.HospitalLoginResquest
@@ -89,6 +90,7 @@ class SessionManager {
     fun deleteToken() {
         HospitalToken().deleteAll()
         Persona().deleteAll()
+        Appointment().deleteAll()
         /*Verifier().deleteAll()
         Dependency().deleteAll()
         StockTaking().deleteAll()*/
